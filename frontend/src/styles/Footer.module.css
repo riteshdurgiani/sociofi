@@ -1,0 +1,40 @@
+.footer{
+    position: inherit;
+    color: white;
+    bottom: 100px;
+
+    margin-left: 40px;
+    display: flex;
+    
+}
+
+.footerRecord{
+    
+    
+    position: absolute;
+    bottom: 10;
+    right: 20px;
+
+}
+
+.button{
+    color: white;
+    padding: 5px;
+    border-radius:9px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2 linear;
+    width: 5rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0.5rem;
+    /* top: 40%; */
+
+}
+.createButton{
+    background-color: #8956F1;
+
+}

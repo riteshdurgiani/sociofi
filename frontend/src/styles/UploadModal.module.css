@@ -1,0 +1,80 @@
+.wrapper { 
+    position: absolute;
+    background-color: #241B35;
+    left : 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    
+    height: fit-content;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+.modalButtons{
+    display: flex;
+    justify-content: space-evenly;
+    /* margin-top: px; */
+    padding: 10px;
+}
+.title{
+    display: flex;
+    color: white;
+   
+    justify-content: space-evenly;
+    font-weight: bolder;
+    font-size: 1.45rem;
+    margin: 0.5rem 0 0.5rem 0;
+}
+.inputField{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.inputTitle{
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.inputContainer{
+    display: flex;
+    border: 1px #ecf1f4 solid;
+    border-radius: 1rem;
+    padding: 0.6rem 0.4rem;
+    background-color: #fafcfc;
+}
+.input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+  
+}
+.button{
+    color: white;
+    padding: 5px;
+    border-radius:9px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2 linear;
+    width: 8rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0.5rem;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+.createButton{
+    background-color: #8956F1;
+
+}
+.cancelButton{
+   margin-left: 10px;
+    color: #fe2d55;
+}

@@ -1,0 +1,29 @@
+.wrapper{
+    background-color: black;
+    width: 100%;
+    display: flex;
+    
+    justify-content: space-evenly;
+    color: white;
+    font-size: 2rem;
+    padding : 10px;
+    border-top : 0.1px solid #241B35 ;
+    border-radius: 20px 20px 0 0 ;
+   
+    gap: 40px;
+    
+}
+.addVideoButton{
+    size: 100px;
+  
+    color: #8956F1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:  0.4rem;
+    /* box-shadow: inset 2px 5px 10px rgb(5, 5, 5); */
+}
+.bottomIcon{
+    cursor: pointer;
+    
+}

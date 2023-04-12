@@ -1,0 +1,13 @@
+.sidebar{
+    position: absolute;
+    top : 10%;
+    right : 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+.sidebarButton{
+    padding: 20px;
+    text-align: center;
+    
+}

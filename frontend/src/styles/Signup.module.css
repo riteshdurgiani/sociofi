@@ -1,0 +1,71 @@
+.authContainer{
+    position: absolute;
+    background-color: #241B35;
+    left : 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    min-width: 25 rem;
+    min-height: 25 rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.2rem;
+    border-radius: 1rem;
+}
+.title{
+    font-weight: bolder;
+    font-size: 1.45rem;
+    margin: 1.5rem 0 3rem 0;
+    color: white;
+
+}
+.signupForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+}
+.inputField{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.inputTitle{
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.inputContainer{
+    display: flex;
+    border: 1px #020102 solid;
+    border-radius: 1rem;
+    padding: 0.6rem 0.4rem;
+    background-color: #241B35;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+.input{
+    flex: 1;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: none;
+}
+.loginButton{
+    background: #4e44ce;
+    padding: 15px 20px;
+    border-radius: 9px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s linear;
+    max-width: 500px;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginButton:active{
+    transform: scale(0.9);
+}

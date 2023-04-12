@@ -1,0 +1,96 @@
+.wrapper{
+    background-color: #010201;
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding-bottom: 30px;
+    /* justify-content: center;
+    align-items: center; */
+    border-radius: 50px;
+    /* box-shadow: 2px 5px 10px #241B35; */
+    box-shadow:  -8px -8px 5px #15101f,
+    8px 8px 5px #33264b;
+
+}
+.wrapperTile{
+    background-color: #010201;
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 20px;
+    /* justify-content: center;
+    align-items: center; */
+    
+    border: 1px solid grey ;
+    /* box-shadow: 2px 5px 10px #241B35; */
+    
+}
+.inputField{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.inputTitle{
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+   
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.inputTitleTile{
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+    margin-top: -20px;
+    margin-bottom: 0.5rem;
+}
+.inputTitleHead{
+    color: white;
+    width: 100%;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.inputContainer{
+    display: flex;
+    border: 1px #020102 solid;
+    border-radius: 1rem;
+    padding: 0.6rem 0.4rem;
+    background-color: #241B35;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+.input{
+    flex: 1;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: none;
+}
+.button{
+    color: white;
+    padding: 5px;
+    border-radius:9px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2 linear;
+    width: 8rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0.5rem;
+    margin-top: 15px;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+
+}
+.createButton{
+    background-color: #8956F1;
+
+}

@@ -1,0 +1,36 @@
+.wrapper{
+    color: white;
+    height: match-parent;
+    width: match-parent;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 20px;
+    margin: 10px;
+    
+    
+}
+.leftDiv{
+    display: flex;
+   flex-direction: column;
+    
+   flex-wrap: nowrap;
+   overflow-y: scroll;
+   
+   scroll-snap-type: y mandatory;
+   -ms-overflow-style : none;
+   scrollbar-width: none;
+
+    
+}
+.leftDiv::-webkit-scrollbar {
+    display: none;
+  }
+
+
+.brand{
+    
+    font-size: 2rem;
+    font-weight: bold;
+    font-stretch: expanded;
+}

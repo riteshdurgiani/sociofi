@@ -1,0 +1,124 @@
+.wrapper{
+    
+    position: absolute;
+    background-color: #241B35;
+    left : 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    padding: 0.5rem;
+    min-width: 30rem;
+    min-height: 30rem;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+    border: 1px solid grey ;
+    
+}
+.wrapperTile{
+    background-color: #010201;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 1rem;
+    align-items: flex-start;
+    
+    /* justify-content: center;
+    align-items: center; */
+    
+    border: 1px solid grey ;
+    /* box-shadow: 2px 5px 10px #241B35; */
+    
+}
+.wrapperFooter{
+    background-color: #010201;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 1rem;
+   
+    
+    /* justify-content: center;
+    align-items: center; */
+    
+    border: 1px solid grey ;
+}
+.leftDiv{
+    height: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+   
+    flex-wrap: nowrap;
+    overflow-y : scroll;
+    scroll-snap-type: y mandatory;
+    
+    scrollbar-width: none;
+
+     
+}
+.leftDiv::-webkit-scrollbar {
+    display: none;
+  }
+  .leftDiv{
+    
+    -ms-overflow-style : none;
+  }
+.inputField{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.inputTitle{
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.inputContainer{
+    display: flex;
+    border: 1px #020102 solid;
+    border-radius: 1rem;
+    padding: 0.6rem 0.4rem;
+    background-color: #241B35;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+.input{
+    flex: 1;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: none;
+}
+.button{
+    color: white;
+    padding: 5px;
+    border-radius:9px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2 linear;
+    width: 8rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0.5rem;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+.createButton{
+    background-color: #8956F1;
+
+}
+.cancelButton{
+    margin-left: 10px;
+     color: #fe2d55;
+ }
+ 
