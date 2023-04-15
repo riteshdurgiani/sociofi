@@ -11,7 +11,7 @@ import { db } from "./firebase";
 import { addDoc, collection, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { SOLANA_HOST } from "../utils/const";
-import { LAMPORTS_PER_SOL,clusterApiUrl } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL,PublicKey,clusterApiUrl } from '@solana/web3.js'
 import * as anchor from '@project-serum/anchor'
 import app from "../firebaseUtils/fbConfig";
 import { doc } from "firebase/firestore";
@@ -21,6 +21,8 @@ import { useEffect } from "react";
 import useAccountDetails from "../hooks/useAccountDetails";
 import styles from '../styles/UploadImageModal.module.css'
 import SearchBar from "./SearchBar";
+import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
+import { web3 } from "@project-serum/anchor";
 const NavbarApp = ({
   userDetail,
   mainViewImageShow,
@@ -40,11 +42,11 @@ const NavbarApp = ({
   const [balance,setBalance] = useState('')
   const [userAccountDetails,setUserAccountDetails] = useState('')
   const [isEligibleForVerification,setIsEligibleForVerification] = useState(false)
-  
+  const [showCommunityCreation,setShowCommunityCreation] = useState(false)
   const SOLANA_HOST = clusterApiUrl(SOLANA_HOST)
 const connection = new anchor.web3.Connection(SOLANA_HOST)
 const wallet = useWallet();
-
+const { publicKey, sendTransaction } = useWallet();
 // getCommunities()
 
 async function gBalance(){
@@ -90,15 +92,74 @@ async function gBalance(){
               createdBy : wallet.publicKey.toString(),
               text : "Welcome to my Community 😇"
              })
+
+             const d = doc(db,"users",wallet.publicKey.toString());
+             await setDoc(d,{
+              hascommunity : "yes"
+             },{merge : true})
          setIsLoading(false)
         }catch(e){
          
           console.log(e)
         }
       }
-   
-      
-      
+      async function verifyUser(){
+        try{
+         
+          const transaction = new Transaction().add(
+              SystemProgram.transfer({
+                fromPubkey: wallet.publicKey,
+                toPubkey: new web3.PublicKey("AYPGr8MqcaD5UuGFGgAHq2VUuciQZtJbkW73ahC365Gx"),
+                lamports: 1_000_000_000,
+              })
+            );
+            const signature = await sendTransaction(transaction, connection);
+              
+           
+            setTimeout(async () => {
+              await connection.confirmTransaction(signature, "processed");
+            },5000)
+             const docRef = doc(db,"users",wallet.publicKey.toString())
+             await setDoc(docRef,{
+              isverified : "yes"
+             },{merge : true})
+            alert("User Verified Successfully")
+
+            setIsEligibleForVerification(false)
+
+
+         }catch(e){
+          console.log(e)
+          alert("OOps Transaction cancelled  ")
+         }
+      }
+      async function checkVerificationEligibility(){
+        const docRef = await getDoc(doc(db,"users",wallet.publicKey.toString()))
+        if(docRef.exists()){
+          const data = docRef.data();
+          if(data.hascommunity === "yes"){
+            setShowCommunityCreation(false)
+            if(data.isverified === "no"){
+            
+            // const q = await getDocs(collection(db,"users"))
+            // const totalUsers = q.length;
+            // const comm = await getDocs(collection(db,"channels",wallet.publicKey.toString(),wallet.publicKey.toString() + "_channel"))
+            // const totalFollowers = comm.length;
+            // if(totalFollowers === 0.10*totalUsers){
+            //   setIsEligibleForVerification(true)
+            // }
+            setIsEligibleForVerification(true)
+            }
+          }else{
+            setIsEligibleForVerification(false)
+            setShowCommunityCreation(true)
+          }
+        }
+
+      }
+      useEffect(()=>{
+        checkVerificationEligibility()
+      },[userDetail])
     return(
         <Navbar collapseOnSelect expand="lg"  variant="dark" sticky="top" style={{width:'100%',background : '#020102',borderBottom:'0.1px solid #241B35 '}}>
       <Container>
@@ -147,10 +208,10 @@ async function gBalance(){
             </Nav.Item>
           </Nav>
           <Nav>
-          <Link href="">
+         {isEligibleForVerification ? ( 
             <button 
             onClick={() => {
-              createChannel()
+              verifyUser()
             }}
             style={{
               color: 'white',
@@ -169,12 +230,39 @@ async function gBalance(){
               margin: '0.5rem',
               boxShadow: 'inset 2px 5px 10px rgb(5, 5, 5)'
             }}>
-            Create
-            Community 
+            Verify Me !
             </button>
            
-          </Link>
-         
+          ) : ""}
+            {showCommunityCreation ? (
+              
+               <button 
+               onClick={() => {
+                 createChannel()
+               }}
+               style={{
+                 color: 'white',
+                 padding: '5px',
+                 backgroundColor : '#CB80FF',
+                 borderRadius:'9px',
+                 color: '#fff',
+                 cursor: 'pointer',
+                 transition: '0.2 linear',
+                 width: '8rem',
+                 alignItems: 'center',
+                 justifyContent: 'center',
+                 display: 'flex',
+                 fontWeight: '600',
+                 fontSize: '1rem',
+                 margin: '0.5rem',
+                 boxShadow: 'inset 2px 5px 10px rgb(5, 5, 5)'
+               }}>
+               Create
+               Community 
+               </button>
+              
+             
+            ) : ""}
           <Link href="">
             <button 
             onClick={() => {

@@ -134,7 +134,7 @@ const Footer =  (
         <div className={styles.footer}>
             <div className={styles.footerText}>
                 <h4>@{channel}
-                 {video.isverified == "yes" ? <PatchCheckFill color="lightBlue"/> : "no channel"}
+                 {video.isverified == "yes" ? <PatchCheckFill color="lightBlue"/> : ""}
                  </h4>
                 <p>{description} </p>
                 
