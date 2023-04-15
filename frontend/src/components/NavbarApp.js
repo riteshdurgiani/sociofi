@@ -62,26 +62,7 @@ async function gBalance(){
     const data  = await getCountAccountDetails()
     return data;
   }
-  useEffect(()=>{
-    setUserAccountDetails('')
-    setIsEligibleForVerification(false)
-    console.log("ACCCOUNTTTTTTTTTT DETAILLLLLLLLSSSSSSs")
-    setTimeout(()=>{
-      getCountAccountDetails().then((response) => setUserAccountDetails(response))
-      
-    
-
-    const vid = userAccountDetails.totalVideoCount * 0.10
-    const img = userAccountDetails.totalImageCount * 0.10
-    const tht  = userAccountDetails.totalThoughtCount * 10
-
-    if(userAccountDetails.videoCount > vid || userAccountDetails.imageCount > img || userAccountDetails.thoughtCount > tht){
-      setIsEligibleForVerification(true)
-    }
-  },3000)
-    console.log(userAccountDetails)
-    console.log(isEligibleForVerification)
-  },[userDetail])
+  
 
       async function createChannel(){
         setIsLoading(true)
@@ -103,8 +84,8 @@ async function gBalance(){
               createdBy : wallet.publicKey.toString(),
               text : "Welcome to my Community 😇"
              })
-             const innerdocRefMsg = await doc(db, "messages", wallet.publicKey.toString(),  wallet.publicKey.toString() + "_messages",  wallet.publicKey.toString());
-             setDoc(innerdocRefMsg,{
+             const innerdocRefMsg = doc(db, "messages", wallet.publicKey.toString(),  wallet.publicKey.toString() + "_messages",  wallet.publicKey.toString());
+             await setDoc(innerdocRefMsg,{
               createdAt : new Date(),
               createdBy : wallet.publicKey.toString(),
               text : "Welcome to my Community 😇"
@@ -141,11 +122,11 @@ async function gBalance(){
             }}>Videos</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-            <Nav.Link href="">Messages</Nav.Link>
+            <Nav.Link href="">Trending</Nav.Link>
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item>
             <Nav.Link href="">Channels</Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             <Nav.Item>
               <SearchBar 
               placeholder= "@username or #topicname"
@@ -188,7 +169,7 @@ async function gBalance(){
               margin: '0.5rem',
               boxShadow: 'inset 2px 5px 10px rgb(5, 5, 5)'
             }}>
-            
+            Create
             Community 
             </button>
            
@@ -224,11 +205,7 @@ async function gBalance(){
          
             <Link href={{
             pathname : '/profile',
-            query : {
-              username : userDetail.userName,
-              profileLink : userDetail.userProfileImageUrl,
            
-            }
           }}>
             <button style={{
               color: 'white',
@@ -247,8 +224,11 @@ async function gBalance(){
               margin: '0.5rem',
               boxShadow: 'inset 2px 5px 10px rgb(5, 5, 5)'
             }}>
-            <img src={userDetail.userProfileImageUrl} height={40} width={40}/>
-            {userDetail.userName}
+              <>
+              {userDetail ? <div><img src={userDetail.userProfileImageUrl} height={40} width={40}/> {userDetail.userName}</div>
+             : ""}
+              </>
+            
             </button>
             </Link>
           

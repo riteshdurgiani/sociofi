@@ -25,20 +25,24 @@ const PostThought = (
     async function setThought() {
         
        
-        fetch("https://api.api-ninjas.com/v1/quotes?category=" + category, {
+        fetch("https://api.quotable.io/random/?tags=" + category, {
             method: "GET",
-            headers: {
-                'X-Api-Key': 'LHHMvBRDtAe3ZdRN/z0Wkg==nnUSkNM4GYIBq8rO'
-              },
+            // headers: {
+            //     'X-Api-Key': 'LHHMvBRDtAe3ZdRN/z0Wkg==nnUSkNM4GYIBq8rO'
+            //   },
            
           })
             .then((response) => response.json())
             .then((data) => {
-            document.getElementById('thoughtIp').value = data[0].quote
-              setDescription(data[0].quote)
+            document.getElementById('thoughtIp').value = data.content
+              setDescription(data.content)
               console.log(data);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error)
+                alert("Topic not supported ")
+                
+            });
         
     }
     return(
@@ -74,7 +78,10 @@ const PostThought = (
                     </div> : ""}
                     <div style={{display : 'flex' , justifyContent : 'space-between'}}>
                 <button 
-                onClick = {newThought}
+                onClick = {()=>{newThought()
+                    setCateogory('')
+                showKeywordsInput(false)
+                }}
                 className = {`${styles.button} ${styles.createButton}`}
                 >
                     Post 

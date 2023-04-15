@@ -13,7 +13,8 @@ const nextConfig = {
       'avatars.dicebear.com',
       'png.pngtree.com',
       'api.dicebear.com/5.x',
-      'api.dicebear.com'
+      'api.dicebear.com',
+      'api-inference.huggingface.co/models/prompthero/openjourney'
     ], 
   },
   

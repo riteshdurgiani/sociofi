@@ -42,6 +42,19 @@ const useVideos = (
     const getVideos = async () => { 
         setIsLoading(true)
         const videos = await program.account.videoAccount.all();
+        videos.forEach(async (video) => {
+            const docRef =await getDoc(doc(db,"users",video.account.authority.toString()))
+           if(docRef.exists()){
+           
+            video.isverified = docRef.data().isverified
+            video.hascommunity = docRef.data().hascommunity
+           }else{
+            video.isverified = "no"
+            video.hascommunity = "no"
+           }
+           
+            
+           })
         // if(searchTerm !=''){
         //     if(searchTerm.includes("#")){
                 
@@ -97,7 +110,18 @@ const useVideos = (
             },
         })
         console.log(tx)
-
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = getDoc(doc)
+        const data = docSnap.data()
+        const totallks = 0
+        if(data.totalLikes){
+            totallks = data.totalLikes
+        }else{
+            totallks = 0
+        }
+        await setDoc(docRef,{
+            totalLikes : totallks + 1
+        },{merge : true})
         setIsLoading(false)
     }
 
@@ -126,6 +150,18 @@ const useVideos = (
                 }
             )
             console.log(tx)
+            const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = getDoc(doc)
+        const data = docSnap.data()
+        const totalComm = 0
+        if(data.totalComments){
+            totalComm = data.totalComments
+        }else{
+            totalComm = 0
+        }
+        await setDoc(docRef,{
+            totalComments : totalImgs + 1
+        },{merge : true})
         }
         setIsLoading(false)
     }
@@ -164,6 +200,18 @@ const useVideos = (
             }
         )
         console.log(tx);
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = await getDoc(docRef)
+        const data = docSnap.data()
+        const totalVds = 0
+        if(data.videosPosted){
+            totalVds = data.videosPosted
+        }else{
+            totalVds = 0
+        }
+        await setDoc(docRef,{
+            videosPosted : totalVds + 1
+        },{merge : true})
         const sentimentOfDescription = sentiment.analyze(description)
         
         const des = description;

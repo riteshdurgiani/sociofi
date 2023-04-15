@@ -50,6 +50,18 @@ const useThoughts = (
                 ...defaultAccounts,
             },
         })
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = getDoc(doc)
+        const data = docSnap.data()
+        const totallks = 0
+        if(data.totalLikes){
+            totallks = data.totalLikes
+        }else{
+            totallks = 0
+        }
+        await setDoc(docRef,{
+            totalLikes : totallks + 1
+        },{merge : true})
         console.log(tx)
     }
 
@@ -77,6 +89,18 @@ const useThoughts = (
                 }
             )
             console.log(tx)
+            const docRef = doc(db,"users",wallet.publicKey.toString())
+            const docSnap = getDoc(doc)
+            const data = docSnap.data()
+            const totalComm = 0
+            if(data.totalComments){
+                totalComm = data.totalComments
+            }else{
+                totalComm = 0
+            }
+            await setDoc(docRef,{
+                totalComments : totalImgs + 1
+            },{merge : true})
         }
     }
 
@@ -113,7 +137,18 @@ const useThoughts = (
             }
         )
         console.log(tx);
-
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = await getDoc(docRef)
+        const data = docSnap.data()
+        const totalThts = 0
+        if(data.thoughtPosted){
+            totalThts = data.thoughtsPosted
+        }else{
+            totalThts = 0
+        }
+        await setDoc(docRef,{
+            thoughtsPosted : totalImgs + 1
+        },{merge : true})
         setDescription('')
         
     }

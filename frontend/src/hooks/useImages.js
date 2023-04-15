@@ -5,7 +5,7 @@ import { SOLANA_HOST } from "../utils/const";
 import { getProgramInstance } from "../utils/utils";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getFirestore,addDoc,setDoc,doc,getDoc, arrayUnion } from "firebase/firestore";
+import { getFirestore,addDoc,setDoc,doc,getDoc, arrayUnion, collection ,getDocs} from "firebase/firestore";
 import { ReactDOM } from "react";
 import app from "../firebaseUtils/fbConfig";
 const anchor = require('@project-serum/anchor')
@@ -47,6 +47,20 @@ const useImages = (
         const images = await program.account.imageAccount.all();
         //save all videos in state for frontend 
         // videos = videos.sort()
+        const dt = {}
+       images.forEach(async (image) => {
+        const docRef =await getDoc(doc(db,"users",image.account.authority.toString()))
+       if(docRef.exists()){
+        console.log(dt)
+        image.isverified = docRef.data().isverified
+        image.hascommunity = docRef.data().hascommunity
+       }else{
+        image.isverified = "no"
+        image.hascommunity = "no"
+       }
+       
+        
+       })
         if(searchTerm !=''){
             if(searchTerm.includes("#")){
                 
@@ -95,6 +109,18 @@ const useImages = (
             },
         })
         console.log(tx)
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = getDoc(doc)
+        const data = docSnap.data()
+        const totallks = 0
+        if(data.totalLikes){
+            totallks = data.totalLikes
+        }else{
+            totallks = 0
+        }
+        await setDoc(docRef,{
+            totalLikes : totallks + 1
+        },{merge : true})
         setIsLoading(false)
     }
 
@@ -124,6 +150,18 @@ const useImages = (
             )
             console.log(tx)
         }
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = getDoc(doc)
+        const data = docSnap.data()
+        const totalComm = 0
+        if(data.totalComments){
+            totalComm = data.totalComments
+        }else{
+            totalComm = 0
+        }
+        await setDoc(docRef,{
+            totalComments : totalImgs + 1
+        },{merge : true})
         setIsLoading(false)
     }
 
@@ -160,6 +198,18 @@ const useImages = (
                 }
             }
         )
+        const docRef = doc(db,"users",wallet.publicKey.toString())
+        const docSnap = await getDoc(docRef)
+        const data = docSnap.data()
+        const totalImgs = 0
+        if(data.imagesPosted){
+            totalImgs = data.imagesPosted
+        }else{
+            totalImgs = 0
+        }
+        await setDoc(docRef,{
+            imagesPosted : totalImgs + 1
+        },{merge : true})
         console.log("TRANSACTIONNNNNNNNNNNNNNNNNNNNNNNNNNN")
         console.log(tx);
         const sentimentOfDescription = sentiment.analyze(description)

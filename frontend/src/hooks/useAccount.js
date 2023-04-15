@@ -24,8 +24,12 @@ async function addUserInFirebase(docId,username,userprofile){
     await setDoc(doc(db,"users",docId.toString()),{
         username : username,
         userprofile : userprofile,
-        isverified : "false",
-        hascommunity : "false"
+        isverified : "no",
+        hascommunity : "no",
+        totalLikes : 0,
+        videosPosted : 0,
+        imagesPosted : 0,
+        totalComments : 0
     });
 }
 const useAccount = () => {

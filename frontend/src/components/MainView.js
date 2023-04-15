@@ -272,6 +272,7 @@ const MainView = () => {
         try{
           const userInfo = await program.account.userAccount.fetch(user_pda);
           console.log(userInfo);
+         
           setUserDetail(userInfo);
           setAccount(true);
         }catch(e){

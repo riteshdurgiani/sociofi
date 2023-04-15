@@ -67,6 +67,7 @@ const UploadImageModal = ({
         
             if (!response.ok) {
               setIsLoading(false)
+                console.log(response)
               alert("Ooops ! Try Some Other Keyword")
             }
         

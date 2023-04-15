@@ -9,7 +9,7 @@ import { PatchCheckFill } from "react-bootstrap-icons";
 import { SOLANA_HOST } from "../utils/const";
 import { getDocs } from "firebase/firestore";
 const anchor = require('@project-serum/anchor')
-const Footer = (
+const Footer =  (
     {address,
         userDetail,
         channel,
@@ -58,7 +58,7 @@ const Footer = (
        console.log(docSnap.exists())
        if(docSnap.exists()){
         console.log("hello")
-        sendSolana(video)
+        await sendSolana(video)
         const innerdocRef = await doc(db, "channels", adddr,  adddr + "_channel",  wallet.publicKey.toString());
        console.log(userDetail)
         await setDoc(innerdocRef,{
@@ -69,36 +69,36 @@ const Footer = (
        }
        window.location.reload()
     }
-    // async function isVerified (name){
-    //     const docs = await getDocs(collection(db,"users"))
+    async function isVerified (name){
+        const docs = await getDocs(collection(db,"users"))
     
      
-    //     docs.forEach((doc)=>{
-    //         const data = doc.data();
-    //         if(data.isverified === "yes" && doc.username === name){
-    //            return true
-    //         }
-    //         else{
-    //             return false
-    //         }
-    //     })
-    // }
-    // async function hasCommunity (name){
-    //     const docs =  await getDocs(collection(db,"users"))
-    //      setTimeout(()=>{
+        docs.forEach((doc)=>{
+            const data = doc.data();
+            if(data.isverified == "yes" && doc.username === name){
+               return true
+            }
+            else{
+                return false
+            }
+        })
+    }
+    async function hasCommunity (name){
         
-    //     docs.forEach((doc)=>{
-    //         const data = doc.data();
-    //         if(data.hascommunity === "yes" && doc.username === name){
-    //            return true
-    //         }
-    //         else{
-    //             return false
-    //         }
-    //     })
-    // },3000)
+         setTimeout(async ()=>{
+            const docs =  await getDocs(collection(db,"users"))
+        docs.forEach((doc)=>{
+            const data = doc.data();
+            if(data.hascommunity == "yes" && doc.username === name){
+               return true
+            }
+            else{
+                return false
+            }
+        })
+    },3000)
        
-    // }
+    }
     async function isVerifedList(){
         const docs = await getDocs(collection(db,"users"))
     
@@ -106,11 +106,11 @@ const Footer = (
         const cList = []
         docs.forEach((doc)=>{
             const data = doc.data();
-            if(data.isverified == "yes"){
+            if(data.isverified === "yes"){
                 console.log("In verified")
                 vList.push(data.username)
             }
-            if(data.hascommunity == "yes"){
+            if(data.hascommunity === "yes"){
                 cList.push(data.username)
             }
         })
@@ -134,13 +134,13 @@ const Footer = (
         <div className={styles.footer}>
             <div className={styles.footerText}>
                 <h4>@{channel}
-                 {/* {verified.includes(channel) ? <PatchCheckFill color="lightBlue"/> : "no channel"} */}
+                 {video.isverified == "yes" ? <PatchCheckFill color="lightBlue"/> : "no channel"}
                  </h4>
                 <p>{description} </p>
                 
             </div>
             <div className={styles.footerRecord}>
-                {/* {community.includes(channel) ? */}
+                { video.hascommunity == "yes" ? 
                  <button 
                 onClick= {() => {
                     joinCommunity(address,userDetail)
@@ -149,7 +149,7 @@ const Footer = (
                 >
                     Join 
                 </button> 
-                {/* : ""} */}
+              : ""} 
             
             </div>
         </div>
