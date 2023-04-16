@@ -248,9 +248,9 @@ const useImages = (
                         images : arrayUnion(randomKey.toString()),
                         videos : arrayUnion(""),
                         createdAt : new Date(),
-                        positivity : sentiment.score > 0 ? "yes" : "no",
-                        negativity : sentiment.score < 0 ? "yes" : "no",
-                        neutrality : sentiment.score === 0 ? "yes" : "no"
+                        positivity : sentimentOfDescription.score > 0 ? data.positivity + 1 : data.positivity,
+                        negativity : sentimentOfDescription.score < 0 ? data.negativity + 1 : data.negativity,
+                        neutrality : sentimentOfDescription.score === 0 ? data.neutrality + 1 : data.neutrality
                     })
                 }
 
