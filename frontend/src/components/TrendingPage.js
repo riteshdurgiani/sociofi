@@ -67,7 +67,7 @@ const TrendingPage = ({
                 <button className={styles.button} onClick={()=>{
                     setShowTrending(false)
                 }}>
-                    All Topics 
+                    All Topics  
                 </button>
            </div>
            <div >
