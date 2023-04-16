@@ -55,7 +55,7 @@ const useVideos = (
            
             
            })
-        // if(searchTerm !=''){
+        // if(searchTerm != ''){
         //     if(searchTerm.includes("#")){
                 
         //         const videosToSend =  videos.filter((video) => {
@@ -66,7 +66,7 @@ const useVideos = (
         //            })
         //         setTimeout(()=>{
         //             setVideos([...videosToSend])
-        //         },2000)
+        //         },3000)
         //     }
         //     else if(searchTerm.includes("@")){
         //         const videosToSend =  videos.filter((video) => {
@@ -77,7 +77,7 @@ const useVideos = (
         //            })
         //         setTimeout(()=>{
         //             setVideos([...videosToSend])
-        //         },2000)
+        //         },3000)
         //     }
         // }else{
         //save all videos in state for frontend 
@@ -93,7 +93,7 @@ const useVideos = (
     //     },2000)
        console.log("VIDEOSSSSSSSSSSSSSSSSSSSS")
        console.log(videos)
-    //    
+    // //    
     // }
     setIsLoading(false)
     }
@@ -111,7 +111,7 @@ const useVideos = (
         })
         console.log(tx)
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = getDoc(doc)
+        const docSnap = await getDoc(doc)
         const data = docSnap.data()
         const totallks = 0
         if(data.totalLikes){
@@ -151,7 +151,7 @@ const useVideos = (
             )
             console.log(tx)
             const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = getDoc(doc)
+        const docSnap = await getDoc(doc)
         const data = docSnap.data()
         const totalComm = 0
         if(data.totalComments){

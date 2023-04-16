@@ -17,7 +17,7 @@ const StatisticsCard = ({
                 {parameter === "monetisation" ? <CurrencyDollar size="50px"/> : "" }
 
             </>
-            <p className={styles.parameterCount}>10 {parameter} </p>
+            <p className={styles.parameterCount}>{count} {parameter} </p>
         </div>
     )
 }

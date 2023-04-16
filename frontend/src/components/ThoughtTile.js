@@ -5,6 +5,7 @@ import { BalloonHeartFill, ChatDotsFill, CurrencyDollar } from "react-bootstrap-
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect } from "react";
 import CommentsThought from "./CommentsThought";
+import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
 const ThoughtTile = ({
     
     address,
@@ -47,11 +48,11 @@ const ThoughtTile = ({
        try{
         console.log(publicKey)
         console.log(address)
-        console.log(video)
+        // console.log(video)
         const transaction = new Transaction().add(
             SystemProgram.transfer({
               fromPubkey: publicKey,
-              toPubkey: video.account.authority,
+              toPubkey: thought.account.authority,
               lamports: 10_000_000,
             })
           );
@@ -61,7 +62,7 @@ const ThoughtTile = ({
 
           alert("SOL sent successfully ")
        }catch(e){
-        alert("OOps Transaction cancelled  ")
+        alert(e)
        }
         
     }
@@ -115,15 +116,16 @@ const ThoughtTile = ({
                             
                             
                 </div>
-            </Card.Body>
-            {showThoughtComments && <CommentsThought
+                {showThoughtComments && <CommentsThought
                             address = {address}
                             setShowThoughtCommentsModal = {setShowThoughtCommentsModal}
                             createCommentThought = {createCommentThought}
                             index = {index}
                             getThoughtComments = {getThoughtComments}
                             commentCountThought = {commentCountThought}
-                            />}           
+                            />}     
+            </Card.Body>
+                  
         </Card>
     )
 }

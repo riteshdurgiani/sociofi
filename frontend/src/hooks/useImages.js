@@ -110,7 +110,7 @@ const useImages = (
         })
         console.log(tx)
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = getDoc(doc)
+        const docSnap = await getDoc(doc)
         const data = docSnap.data()
         const totallks = 0
         if(data.totalLikes){
@@ -151,7 +151,7 @@ const useImages = (
             console.log(tx)
         }
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = getDoc(doc)
+        const docSnap = await getDoc(doc)
         const data = docSnap.data()
         const totalComm = 0
         if(data.totalComments){
@@ -232,12 +232,13 @@ const useImages = (
                 if(docRef.exists()){
                     console.log("Inside hashtag doc exists ")
                     const data  = docRef.data()
+                    
                     await setDoc(doc(db,"hashtags",tagString),{
                         totalImages : data.totalImages + 1,
                         images : arrayUnion(randomKey.toString()),
-                        positivity : sentimentOfDescription.score > 0 ? "yes" : "no",
-                        negativity : sentimentOfDescription.score < 0 ? "yes" : "no",
-                        neutrality : sentimentOfDescription.score === 0 ? "yes" : "no"
+                        positivity : sentimentOfDescription.score > 0 ? data.positivity + 1 : data.positivity,
+                        negativity : sentimentOfDescription.score < 0 ? data.negativity + 1 : data.negativity,
+                        neutrality : sentimentOfDescription.score === 0 ? data.neutrality + 1 : data.neutrality
                     },{merge : true})
                 }else{
                     console.log("Inside hashtag doc not exists ")

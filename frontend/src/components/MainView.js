@@ -39,6 +39,7 @@ import MyImage from '../images/NotFound.png'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ChatModal from "./ChatModal";
+import TrendingPage from "./TrendingPage";
 const anchor = require('@project-serum/anchor')
 const utf8 = anchor.utils.bytes.utf8
 const {BN,web3} = anchor
@@ -77,6 +78,7 @@ const MainView = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState('');
     const [chatModalShow,setChatModalShow] = useState(false)
+    const [trendingMainView,setTrendingMainView] = useState(false)
     const [chatAddress,setChatAddress] = useState('')
     const [searchTerm,setSearchTerm] = useState('')
     const [topics,setTopics] = useState([])
@@ -282,6 +284,8 @@ const MainView = () => {
       }
       useEffect(()=>{
         console.log("SEARCH TERM CHANGEDDDDDDDDDDD")
+        setSearchTerm('')
+      
         setImages([])
         getImages()
         setVideos([])
@@ -309,6 +313,10 @@ const MainView = () => {
                 setSearchTerm = {setSearchTerm}
                 users = {users}
                 topics = {topics}
+                trendingMainView = {trendingMainView}
+                setTrendingMainView = {setTrendingMainView}
+                videos={videos}
+                images={images}
             />
             <NavbarBottom 
             setUploadModalShow = {setUploadModalShow}
@@ -477,7 +485,14 @@ const MainView = () => {
                             
 
                             <>
-                                {mainViewImageShow ? (
+                            {trendingMainView && !mainViewImageShow && !mainViewVideoShow ? (
+                              <TrendingPage 
+                              trendingMainView = {trendingMainView}
+                              setTrendingMainView = {setTrendingMainView}
+                              />
+                            ) : ""}
+                                {mainViewImageShow && !trendingMainView ? (
+
                                    <div style={{height : '100%'}}>
                                        {images.length === 0? (
                                         <div style={{paddingBottom : "10px", display : "flex" , flexDirection : "column", alignItems : "center" , marginBottom : "40%"}}>
@@ -511,7 +526,8 @@ const MainView = () => {
                                         <div style={{width:'match-parent',height:'80px'}}></div>
                                     
                                         </div>
-                                ) : (
+                                ) : ""}
+                                {mainViewVideoShow && !trendingMainView ? (
                                     <div style={{height : '100%'}}>
                                         
                                         {videos.length === 0 ? (
@@ -544,7 +560,7 @@ const MainView = () => {
                                 
                                  <div style={{width:'match-parent',height:'80px'}}></div>
                                     </div>
-                                )}
+                                ) : ""}
                             </>
                                 {/* {mainViewImageShow  ? () : ()} */}
                             

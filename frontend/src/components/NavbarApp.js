@@ -36,7 +36,11 @@ const NavbarApp = ({
  searchTerm,
  setSearchTerm,
  users,
- topics
+ topics,
+ trendingMainView,
+setTrendingMainView,
+videos,
+images
 }) => { 
   const db = getFirestore(app)
   const [balance,setBalance] = useState('')
@@ -97,6 +101,10 @@ async function gBalance(){
              await setDoc(d,{
               hascommunity : "yes"
              },{merge : true})
+
+
+             alert("Community Created Successfully")
+             window.location.reload()
          setIsLoading(false)
         }catch(e){
          
@@ -137,9 +145,9 @@ async function gBalance(){
         const docRef = await getDoc(doc(db,"users",wallet.publicKey.toString()))
         if(docRef.exists()){
           const data = docRef.data();
-          if(data.hascommunity === "yes"){
-            setShowCommunityCreation(false)
-            if(data.isverified === "no"){
+          if(data.isverified === "yes"){
+            setIsEligibleForVerification(false)
+            if(data.hascommunity === "no"){
             
             // const q = await getDocs(collection(db,"users"))
             // const totalUsers = q.length;
@@ -148,18 +156,19 @@ async function gBalance(){
             // if(totalFollowers === 0.10*totalUsers){
             //   setIsEligibleForVerification(true)
             // }
-            setIsEligibleForVerification(true)
+            setShowCommunityCreation(true)
             }
           }else{
-            setIsEligibleForVerification(false)
-            setShowCommunityCreation(true)
+            
+            setShowCommunityCreation(false)
+            setIsEligibleForVerification(true)
           }
         }
 
       }
       useEffect(()=>{
         checkVerificationEligibility()
-      },[userDetail])
+      },[userDetail,isEligibleForVerification])
     return(
         <Navbar collapseOnSelect expand="lg"  variant="dark" sticky="top" style={{width:'100%',background : '#020102',borderBottom:'0.1px solid #241B35 '}}>
       <Container>
@@ -169,6 +178,7 @@ async function gBalance(){
           <Nav className="me-auto" >
             <Nav.Item>
             <Nav.Link href="" onClick={() => {
+              setTrendingMainView(false)
               setMainViewVideoShow(false)
               setMainViewImageShow(true)
             }}
@@ -177,13 +187,17 @@ async function gBalance(){
             </Nav.Item>
             <Nav.Item>
             <Nav.Link href="" onClick={() => {
-          
+              setTrendingMainView(false)
               setMainViewImageShow(false)
               setMainViewVideoShow(true)  
             }}>Videos</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-            <Nav.Link href="">Trending</Nav.Link>
+            <Nav.Link href="" onClick={()=>{
+              setMainViewImageShow(false)
+              setMainViewVideoShow(false)
+              setTrendingMainView(true)
+            }}>Trending</Nav.Link>
             </Nav.Item>
             {/* <Nav.Item>
             <Nav.Link href="">Channels</Nav.Link>
@@ -291,10 +305,17 @@ async function gBalance(){
            
           </Link>
          
-            <Link href={{
-            pathname : '/profile',
+            <Link href=""
+          //   href={{
+          //   pathname : '/profile',
+          //   query :{
+          //     userAddress : wallet.publicKey.toString(),
+          //     userVideos : videos,
+          //     userImages : images,
+          //   }
            
-          }}>
+          // }}
+          >
             <button style={{
               color: 'white',
               padding: '5px',

@@ -51,7 +51,7 @@ const useThoughts = (
             },
         })
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = getDoc(doc)
+        const docSnap = await getDoc(doc)
         const data = docSnap.data()
         const totallks = 0
         if(data.totalLikes){
@@ -90,7 +90,7 @@ const useThoughts = (
             )
             console.log(tx)
             const docRef = doc(db,"users",wallet.publicKey.toString())
-            const docSnap = getDoc(doc)
+            const docSnap = await getDoc(doc)
             const data = docSnap.data()
             const totalComm = 0
             if(data.totalComments){

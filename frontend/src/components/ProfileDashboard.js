@@ -6,8 +6,11 @@ import StatisticsCard from "./StatisticsCard";
 
 const ProfileDashboard = ({
     username,
-    profileLink
+    profileLink,
+    userStatistics,
 }) => {
+
+    console.log(userStatistics)
     return(
         <div className={styles.wrapper}>
             <div  className={styles.brand} style={{display:'flex',justifyContent : 'flex-start',alignContent:"space-between"}}>
@@ -20,7 +23,7 @@ const ProfileDashboard = ({
             </div>
           
             <div className= {styles.leftDiv} style={{width:'match-parent',justifyContent: 'center',alignItems:'center',borderRight : '1px solid grey'}}>
-                <StatisticsCard parameter="images" count="0"/>
+                <StatisticsCard parameter="images" count={userStatistics.imagesPosted}/>
                 <StatisticsCard  parameter="videos" count="0"/>
                 <StatisticsCard  parameter="likes" count="0"/>
                 <StatisticsCard  parameter="comments" count="0"/>

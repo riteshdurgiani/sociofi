@@ -36,7 +36,9 @@ const CommentsThought = ({
             {commentsThought.map(comment => {
                 return (
                     <CommentCard
+                    
                     key = {comment.index.toNumber()}
+                   
                     username = {comment.commenterName}
                     comment = {comment.text}
                     avatar = {comment.commenterUrl}
