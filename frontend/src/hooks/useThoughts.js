@@ -3,12 +3,14 @@ import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { SOLANA_HOST } from "../utils/const";
 import { getProgramInstance } from "../utils/utils";
-
+import { getFirestore,addDoc,setDoc,doc,getDoc, arrayUnion, collection ,getDocs} from "firebase/firestore";
+import { ReactDOM } from "react";
+import app from "../firebaseUtils/fbConfig";
 const anchor = require('@project-serum/anchor')
 const utf8 = anchor.utils.bytes.utf8
 const {BN,web3} = anchor
 const {SystemProgram} = web3
-
+const db = getFirestore(app)
 const defaultAccounts = {
     tokenProgram : TOKEN_PROGRAM_ID,
     clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
@@ -51,7 +53,7 @@ const useThoughts = (
             },
         })
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = await getDoc(doc)
+        const docSnap = await getDoc(docRef)
         const data = docSnap.data()
         const totallks = 0
         if(data.totalLikes){
@@ -90,7 +92,7 @@ const useThoughts = (
             )
             console.log(tx)
             const docRef = doc(db,"users",wallet.publicKey.toString())
-            const docSnap = await getDoc(doc)
+            const docSnap = await getDoc(docRef)
             const data = docSnap.data()
             const totalComm = 0
             if(data.totalComments){
@@ -99,7 +101,7 @@ const useThoughts = (
                 totalComm = 0
             }
             await setDoc(docRef,{
-                totalComments : totalImgs + 1
+                totalComments : totalComm + 1
             },{merge : true})
         }
     }
@@ -147,8 +149,9 @@ const useThoughts = (
             totalThts = 0
         }
         await setDoc(docRef,{
-            thoughtsPosted : totalImgs + 1
+            thoughtsPosted : totalThts + 1
         },{merge : true})
+
         setDescription('')
         
     }

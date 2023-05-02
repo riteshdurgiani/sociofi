@@ -18,7 +18,7 @@ const defaultAccounts = {
 }
 
 const useAccountDetails = (
-   
+    
 ) => {
     const wallet = useWallet();
     const connection = new anchor.web3.Connection(SOLANA_HOST);

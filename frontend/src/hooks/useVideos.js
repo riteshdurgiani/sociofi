@@ -235,9 +235,9 @@ const useVideos = (
                     await setDoc(doc(db,"hashtags",tagString),{
                         totalVideos : data.totalVideos + 1,
                         videos : arrayUnion(randomKey.toString()),
-                        positivity : sentimentOfDescription.score > 0 ? "yes" : "no",
-                        negativity : sentimentOfDescription.score < 0 ? "yes" : "no",
-                        neutrality : sentimentOfDescription.score === 0 ? "yes" : "no"
+                        positivity : sentimentOfDescription.score > 0 ? data.positivity +1 : data.positivity,
+                        negativity : sentimentOfDescription.score < 0 ? data.negativity + 1 : data.negativity,
+                        neutrality : sentimentOfDescription.score === 0 ? data.neutrality + 1 : data.neutrality
                     },{merge : true})
                 }else{
                     console.log("Inside hashtag doc not exists ")
@@ -247,9 +247,9 @@ const useVideos = (
                         videos : arrayUnion(randomKey.toString()),
                         images : arrayUnion(""),
                         createdAt : new Date(),
-                        positivity : sentiment.score > 0 ? "yes" : "no",
-                        negativity : sentiment.score < 0 ? "yes" : "no",
-                        neutrality : sentiment.score === 0 ? "yes" : "no"
+                        positivity : sentiment.score > 0 ? 1: 0,
+                        negativity : sentiment.score < 0 ?1:0,
+                        neutrality : sentiment.score === 0 ? 1:0
                     })
                 }
 

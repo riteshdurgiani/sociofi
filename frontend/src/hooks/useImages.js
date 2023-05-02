@@ -110,7 +110,7 @@ const useImages = (
         })
         console.log(tx)
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = await getDoc(doc)
+        const docSnap = await getDoc(docRef)
         const data = docSnap.data()
         const totallks = 0
         if(data.totalLikes){
@@ -151,7 +151,7 @@ const useImages = (
             console.log(tx)
         }
         const docRef = doc(db,"users",wallet.publicKey.toString())
-        const docSnap = await getDoc(doc)
+        const docSnap = await getDoc(docRef)
         const data = docSnap.data()
         const totalComm = 0
         if(data.totalComments){
@@ -160,7 +160,7 @@ const useImages = (
             totalComm = 0
         }
         await setDoc(docRef,{
-            totalComments : totalImgs + 1
+            totalComments : totalComm + 1
         },{merge : true})
         setIsLoading(false)
     }
@@ -213,7 +213,7 @@ const useImages = (
         console.log("TRANSACTIONNNNNNNNNNNNNNNNNNNNNNNNNNN")
         console.log(tx);
         const sentimentOfDescription = sentiment.analyze(description)
-        
+       
         const des = description;
             if(des.includes("#")){
                 console.log("inside hashtag ")
@@ -248,9 +248,9 @@ const useImages = (
                         images : arrayUnion(randomKey.toString()),
                         videos : arrayUnion(""),
                         createdAt : new Date(),
-                        positivity : sentimentOfDescription.score > 0 ? data.positivity + 1 : data.positivity,
-                        negativity : sentimentOfDescription.score < 0 ? data.negativity + 1 : data.negativity,
-                        neutrality : sentimentOfDescription.score === 0 ? data.neutrality + 1 : data.neutrality
+                        positivity : sentimentOfDescription.score > 0 ? 1 : 0,
+                        negativity : sentimentOfDescription.score < 0 ? 1 : 0,
+                        neutrality : sentimentOfDescription.score === 0 ? 1 : 0
                     })
                 }
 

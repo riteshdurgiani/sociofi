@@ -29,7 +29,8 @@ async function addUserInFirebase(docId,username,userprofile){
         totalLikes : 0,
         videosPosted : 0,
         imagesPosted : 0,
-        totalComments : 0
+        totalComments : 0,
+        thoughtsPosted : 0
     });
 }
 const useAccount = () => {
